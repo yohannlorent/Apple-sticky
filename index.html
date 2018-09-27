@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apple Sticky</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+	
+<div class="part-01">
+		
+		<div class="titre">Apple Sticky</div>
+		<div class="iphone1"><img  src="_Img/iphone03.png" width="241" height="486" class="imgiphone1 imgiphone2 "></div>
+		<div class="iphone1"><img  src="_Img/iphone02.png" width="241" height="486" class="imgiphone1 imgiphone3 "></div>
+		<div class="iphone1"><img  src="_Img/iphone01.png" width="242" height="487" class="imgiphone1"></div>		
+	</div>
+	
+	<img src="_Img/HTG-scroll-icon.gif" width="35" height="52" class="gif">
+	
+<style><!--
+	body{
+		padding:0;
+		margin:0;
+		background-color:#000;
+		background-image:url(_Img/bg-iphone.jpg);
+		background-repeat: no-repeat;
+		background-position: top center;
+	}
+	.part-01{
+	
+		width:100%;
+		height:8000px;
+		
+	}
+	.titre{
+		position: -webkit-sticky;
+		position: -moz-sticky;
+		position: -ms-sticky;
+		position: -o-sticky;
+		position: sticky;
+		top: 40px;
+		width:100%;
+		color:#fff;
+		text-align:center;
+		font-family: 'Roboto', sans-serif;
+		font-weight:bold;
+		font-size:80px;
+	}
+	.iphone1{
+		position: -webkit-sticky;
+		position: -moz-sticky;
+		position: -ms-sticky;
+		position: -o-sticky;
+		position: sticky;
+		top: 0;
+		width:100%;
+	
+	}
+	.imgiphone1{
+		position:absolute;
+		top:calc(8000px / 16);
+		left:50%;
+	}
+	.gif{
+		position:absolute;
+		left:50%;
+		bottom:50px;
+		margin-left:-17px;
+	}
+
+--></style>
+	
+	
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.11.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+	
+<script type="text/javascript">// <![CDATA[
+	
+	jQuery(document).ready(function($) {
+		$(".part-01").css('margin-left', -($(".imgiphone1").width())/2 );	
+		$(".titre").css('margin-left', ($(".imgiphone1").width())/2 );
+		$(".imgiphone1").css('opacity', 0);
+		$(".imgiphone2").css('opacity', 0);
+		$(".imgiphone3").css('opacity', 0);
+			
+		var division=16;
+					
+		$(window).scroll(function(){
+					
+			var sPos = $(this).scrollTop();
+			var hauteurencart=$(".part-01").height();
+			var positionEncart = $(".part-01").position();
+			var positionscroll= $(this).scrollTop()-positionEncart.top;
+						
+			var var1=(1/division)*hauteurencart;
+			var var2=var1-positionscroll;
+			var pourcentagePremierTiers=Math.ceil((positionscroll*100)/var1);
+						
+			if(var2<=300){
+				var2=300;
+			}
+						
+			if(pourcentagePremierTiers>=100){
+				pourcentagePremierTiers=100;
+			}
+			
+			if(pourcentagePremierTiers>=30){
+				$(".gif").css('opacity', 0);
+			}
+
+			$(".imgiphone1").css('top' , var2+'px');
+			$(".imgiphone1").css('opacity', pourcentagePremierTiers/100);
+			$(".imgiphone2").css('opacity', 0);
+			$(".imgiphone3").css('opacity', 0);
+						
+											
+			if(positionscroll<var1){
+				$(".imgiphone1").css('left' ,'50%');
+				$(".imgiphone2").css('left' , '50%');
+				$(".imgiphone3").css('left' , '50%');	
+			}
+					
+			if(positionscroll>var1){
+				$(".imgiphone2").css('opacity', 1);
+				$(".imgiphone3").css('opacity', 1);
+				
+				var var3=positionscroll-var1;
+				var var4=(var3*100)/var1;
+				var var5=50+(var4/2);
+						
+				if(var5>=70){
+					var5=70;
+				}
+					
+				$( ".texte" ).text( var5);
+					$(".imgiphone1").css('left' , ((var5)+'%'));
+					$(".imgiphone2").css('left' , (100-var5)+'%');
+					$(".imgiphone3").css('left' , '50%');
+				}
+						
+						
+		});
+					
+					
+	});
+		 
+	// ]]></script>	
+	
+</body>
+</html>
